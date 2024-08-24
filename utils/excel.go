@@ -42,7 +42,7 @@ func GetExcelRows(ctx context.Context, url string) ([][]string, error) {
 	}
 	sheetIndex := fileHandler.GetActiveSheetIndex()
 	if sheetIndex == 0 {
-		return nil, errors.New("excel格式不正确")
+		return nil, errors.New("Incorrect excel format")
 	}
 	rows := fileHandler.GetRows(fileHandler.GetSheetName(sheetIndex))
 	return rows, nil
