@@ -37,13 +37,10 @@ func (d *DelayQueue) ConsumerMessage(ctx context.Context, funcHandler func(in *D
 }
 
 // Start 初始化client
-func (d *DelayQueue) Start(ctx context.Context,
-	redisClient *redisv8.Client,
-	cfg *DelayQueueConfig, funcHandler func(in *DelayQueueMessages)) {
+func (d *DelayQueue) Start(ctx context.Context, funcHandler func(in *DelayQueueMessages)) {
 
-	DelayQueueClient := InitDelayQueue(ctx, redisClient, cfg)
 	for {
-		DelayQueueClient.ConsumerMessage(ctx, funcHandler)
+		d.ConsumerMessage(ctx, funcHandler)
 		if d.SleepSeconds > 0 {
 			time.Sleep(time.Duration(d.SleepSeconds) * time.Second)
 		}
